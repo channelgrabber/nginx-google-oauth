@@ -185,7 +185,7 @@ end
 
 local function redirect_to_auth()
   -- google seems to accept space separated domain list in the login_hint, so use this undocumented feature.
-  return ngx.redirect("https://accounts.google.com/o/oauth2/auth?" .. ngx.encode_args({
+  return ngx.redirect("https://accounts.google.com/o/oauth2/v2/auth?" .. ngx.encode_args({
     client_id     = client_id,
     scope         = "email",
     response_type = "code",
@@ -201,7 +201,7 @@ local function authorize()
   end
 
   if uri_args["error"] then
-    ngx.log(ngx.ERR, "received " .. uri_args["error"] .. " from https://accounts.google.com/o/oauth2/auth")
+    ngx.log(ngx.ERR, "received " .. uri_args["error"] .. " from https://accounts.google.com/o/oauth2/v2/auth")
     return ngx.exit(ngx.HTTP_FORBIDDEN)
   end
 
